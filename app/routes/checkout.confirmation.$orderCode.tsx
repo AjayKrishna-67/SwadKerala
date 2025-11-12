@@ -105,7 +105,7 @@ export default function CheckoutConfirmation() {
   return (
     <>
       {/* The main background for the entire confirmation page */}
-      <main className="min-h-screen mt-20 bg-amber-100 py-10 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen mt-20 py-10 px-4 sm:px-6 lg:px-8">
         {/* Progress Bar */}
         <div className="lg:max-w-4xl mx-auto mb-8">
           <nav aria-label="Progress">

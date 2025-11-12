@@ -208,7 +208,7 @@ export default function PaymentStep({
                       By clicking the Place Order button, you confirm that you
                       have read, understand and accept our Terms of Use, Terms
                       of Sale and Returns Policy and acknowledge that you have
-                      read KaaiKani Store's Privacy Policy.
+                      read Swadkerala Store's Privacy Policy.
                     </p>
                     <RazorpayPayments
                       orderCode={activeOrder?.code ?? ''}
@@ -241,7 +241,7 @@ export default function PaymentStep({
                       By clicking the Place Order button, you confirm that you
                       have read, understand and accept our Terms of Use, Terms
                       of Sale and Returns Policy and acknowledge that you have
-                      read KaaiKani Store's Privacy Policy.
+                      read Swadkerala Store's Privacy Policy.
                     </p>
                     <button
                       type="submit"

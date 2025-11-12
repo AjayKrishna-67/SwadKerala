@@ -243,7 +243,7 @@ export default function OrderHistoryItem({
               <EllipsisVerticalIcon className="w-5 h-5" />
             </Button> */}
             <Button
-              className="bg-white text-sm rounded-l-none"
+              className="bg-orange text-sm rounded-l-none"
               onClick={() => setIsExpanded(!isExpanded)}
               title={t('order.expand')}
             >
@@ -398,7 +398,7 @@ export default function OrderHistoryItem({
             {canCancelOrder && !hasPendingCancelRequest && (
               <Button
                 onClick={() => setShowCancelDialog(true)}
-                className="bg-white text-red-500 border border-red-500 hover:bg-red-500 hover:text-white text-xs order-1 sm:order-none"
+                className="bg-orange text-red-500 border border-red-500 hover:bg-red-500 hover:text-white text-xs order-1 sm:order-none"
                 title="Cancel Order"
                 disabled={isSubmitting}
               >
