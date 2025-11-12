@@ -51,8 +51,12 @@ export default function TermsAndConditions() {
             Terms & Conditions
           </h1>
           <p className="text-lg text-navy/70 max-w-2xl mx-auto">
-            Welcome to SwadKerala, your trusted source for authentic Kerala spices. Please read
-            these terms carefully before using our services.
+            Welcome to SwadKerala, your trusted source for authentic Kerala spices sourced
+            directly from God's Own Country. Please read these terms carefully before using
+            our services.
+          </p>
+          <p className="text-sm text-navy/60 mt-4">
+            <strong>Last Updated:</strong> November 2024
           </p>
         </div>
 
@@ -129,9 +133,10 @@ export default function TermsAndConditions() {
                         Order Processing
                       </h3>
                       <p className="text-base leading-relaxed">
-                        Orders are processed within 24-48 hours. Custom orders
-                        may take longer. You will receive confirmation via
-                        email/SMS.
+                        Your Kerala spice orders are processed within 24-48 hours during business days.
+                        Custom spice blends or bulk orders may require additional processing time.
+                        You will receive order confirmation via email/SMS along with tracking details
+                        once your order is dispatched.
                       </p>
                     </div>
                   </div>
@@ -152,9 +157,10 @@ export default function TermsAndConditions() {
                     <div>
                       <h3 className="font-semibold text-lg">Delivery Areas</h3>
                       <p className="text-base leading-relaxed">
-                        We deliver across major cities in India. Delivery
-                        charges vary by location and order value. Free delivery
-                        available on orders above ₹500.
+                        We deliver authentic Kerala spices across major cities and towns in India.
+                        Delivery charges vary by location and order value. Enjoy free delivery
+                        on orders above ₹500. Typical delivery time is 3-7 business days depending
+                        on your location.
                       </p>
                     </div>
                   </div>

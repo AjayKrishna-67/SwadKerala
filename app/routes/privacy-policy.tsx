@@ -53,9 +53,12 @@ export default function PrivacyPolicy() {
             Privacy Policy
           </h1>
           <p className="text-lg text-navy/70 max-w-2xl mx-auto">
-            Your privacy is important to us. This policy explains how we
-            collect, use, and protect your personal information when you use our
-            SwadKerala platform for authentic Kerala spices.
+            At SwadKerala, your privacy is our priority. This policy explains how we
+            collect, use, and protect your personal information when you shop for
+            authentic Kerala spices on our platform.
+          </p>
+          <p className="text-sm text-navy/60 mt-4">
+            <strong>Last Updated:</strong> November 2024
           </p>
         </div>
 
@@ -135,8 +138,9 @@ export default function PrivacyPolicy() {
                         Order Processing & Delivery
                       </h3>
                       <p className="text-base leading-relaxed">
-                        We use your information to process orders, arrange
-                        delivery, and provide customer support.
+                        We use your information to process your authentic Kerala spice orders,
+                        arrange delivery to your doorstep, provide order tracking, and offer
+                        exceptional customer support for all your spice needs.
                       </p>
                     </div>
                   </div>
@@ -146,8 +150,9 @@ export default function PrivacyPolicy() {
                     <div>
                       <h3 className="font-semibold text-lg">Communication</h3>
                       <p className="text-base leading-relaxed">
-                        We may send you order confirmations, delivery updates,
-                        promotional offers, and important service announcements.
+                        We may send you order confirmations, delivery updates for your spice orders,
+                        exclusive offers on Kerala spices, seasonal promotions, and important service
+                        announcements. You can opt-out of promotional emails anytime.
                       </p>
                     </div>
                   </div>
@@ -159,8 +164,9 @@ export default function PrivacyPolicy() {
                         Service Improvement
                       </h3>
                       <p className="text-base leading-relaxed">
-                        We analyze usage patterns to improve our platform,
-                        personalize your experience, and develop new features.
+                        We analyze usage patterns to improve our platform, personalize your
+                        shopping experience with relevant spice recommendations, optimize our
+                        product offerings, and develop new features to better serve your culinary needs.
                       </p>
                     </div>
                   </div>
@@ -233,9 +239,11 @@ export default function PrivacyPolicy() {
 
                   <div className="bg-cream/50 p-4 rounded-lg border border-gold/20">
                     <p className="text-sm font-medium text-navy">
-                      <strong>Note:</strong> While we strive to protect your
-                      information, no method of transmission over the internet
-                      is 100% secure. We cannot guarantee absolute security.
+                      <strong>Note:</strong> At SwadKerala, we take your data security seriously
+                      and implement industry-leading practices. While we strive to protect your
+                      information with the highest standards, no method of transmission over the
+                      internet is 100% secure. We continuously update our security measures to
+                      ensure your information remains protected.
                     </p>
                   </div>
                 </div>
@@ -337,11 +345,12 @@ export default function PrivacyPolicy() {
                 <div className="ml-11">
                   <p className="text-base leading-relaxed">
                     We retain your personal information for as long as necessary
-                    to provide our services and fulfill the purposes outlined in
-                    this policy. Account information is typically retained for
-                    the duration of your account plus a reasonable period for
-                    legal and business purposes. You may request deletion of
-                    your account and associated data at any time.
+                    to provide our Kerala spice delivery services and fulfill the purposes
+                    outlined in this policy. Account information is typically retained for
+                    the duration of your active account plus a reasonable period for
+                    legal, tax, and business purposes (typically 3-5 years). You may request
+                    deletion of your account and associated data at any time by contacting
+                    our support team.
                   </p>
                 </div>
               </section>
