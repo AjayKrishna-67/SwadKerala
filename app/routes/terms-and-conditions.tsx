@@ -12,6 +12,9 @@ import {
   CreditCard,
   Users,
   Clock,
+  Mail,
+  Phone,
+  MapPin,
 } from 'lucide-react';
 
 export async function loader({ request }: { request: Request }) {
@@ -35,39 +38,39 @@ export default function TermsAndConditions() {
   }, [activeCustomer]);
 
   return (
-    <div className="min-h-screen mt-20 bg-gradient-to-br from-background-cream via-white to-background-cream">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-cream via-white to-cream">
       {/* Header */}
 
       <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-navy to-spice rounded-full mb-6">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-brand-purple mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-navy mb-4">
             Terms & Conditions
           </h1>
-          <p className="text-lg text-brand-purple/70 max-w-2xl mx-auto">
-            Welcome to our South Mithai sweets and snacks platform. Please read
+          <p className="text-lg text-navy/70 max-w-2xl mx-auto">
+            Welcome to SwadKerala, your trusted source for authentic Kerala spices. Please read
             these terms carefully before using our services.
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-800 /10 overflow-hidden">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gold/20 overflow-hidden">
           <div className="p-8 sm:p-12">
-            <div className="space-y-8 text-brand-purple">
+            <div className="space-y-8 text-navy">
               {/* Section 1 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">1</span>
                   </div>
                   <h2 className="text-2xl font-bold">Acceptance of Terms</h2>
                 </div>
                 <p className="text-base leading-relaxed ml-11">
-                  By accessing and using our South Indian sweets and snacks
-                  platform, you accept and agree to be bound by the terms and
+                  By accessing and using SwadKerala's online platform for authentic Kerala spices,
+                  you accept and agree to be bound by the terms and
                   provision of this agreement. If you do not agree to abide by
                   the above, please do not use this service.
                 </p>
@@ -76,26 +79,25 @@ export default function TermsAndConditions() {
               {/* Section 2 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">2</span>
                   </div>
                   <h2 className="text-2xl font-bold">Product Information</h2>
                 </div>
                 <div className="ml-11 space-y-3">
                   <p className="text-base leading-relaxed">
-                    We specialize in authentic South Indian sweets, snacks, and
-                    traditional delicacies including:
+                    We specialize in authentic Kerala spices sourced directly from God's Own Country, including:
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-base ml-4">
-                    <li>Traditional sweets </li>
-                    <li>Savory snacks </li>
-                    <li>Festival specials and seasonal items</li>
-                    <li>Custom orders for special occasions</li>
+                    <li>Premium whole spices (cardamom, pepper, cinnamon, cloves, nutmeg)</li>
+                    <li>Ground spices and spice blends</li>
+                    <li>Traditional Kerala spice mixes and masalas</li>
+                    <li>Organic and premium quality variants</li>
                   </ul>
                   <p className="text-base leading-relaxed">
-                    All products are made with premium ingredients and
-                    traditional recipes. Product images are for reference only
-                    and actual products may vary slightly.
+                    All spices are handpicked from Kerala's finest farms, ensuring purity and authentic flavor.
+                    Product images are for reference only and actual products may vary slightly in appearance
+                    while maintaining the same premium quality.
                   </p>
                 </div>
               </section>
@@ -103,14 +105,14 @@ export default function TermsAndConditions() {
               {/* Section 3 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">3</span>
                   </div>
                   <h2 className="text-2xl font-bold">Orders & Payment</h2>
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <CreditCard className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <CreditCard className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">Payment Methods</h3>
                       <p className="text-base leading-relaxed">
@@ -121,7 +123,7 @@ export default function TermsAndConditions() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Clock className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Order Processing
@@ -139,14 +141,14 @@ export default function TermsAndConditions() {
               {/* Section 4 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">4</span>
                   </div>
                   <h2 className="text-2xl font-bold">Delivery & Shipping</h2>
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Truck className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Truck className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">Delivery Areas</h3>
                       <p className="text-base leading-relaxed">
@@ -156,11 +158,11 @@ export default function TermsAndConditions() {
                       </p>
                     </div>
                   </div>
-                  <div className="bg-background-cream/50 p-4 rounded-lg border border-amber-800 /20">
-                    <p className="text-sm font-medium text-brand-purple">
-                      <strong>Note:</strong> Fresh sweets are packed in
-                      food-grade containers to maintain quality during transit.
-                      We recommend consuming within 3-5 days of delivery.
+                  <div className="bg-cream/50 p-4 rounded-lg border border-gold/20">
+                    <p className="text-sm font-medium text-navy">
+                      <strong>Note:</strong> All spices are packed in
+                      airtight, food-grade containers to maintain freshness and aroma during transit.
+                      We recommend storing in a cool, dry place to preserve quality and flavor.
                     </p>
                   </div>
                 </div>
@@ -169,21 +171,20 @@ export default function TermsAndConditions() {
               {/* Section 5 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">5</span>
                   </div>
                   <h2 className="text-2xl font-bold">Returns & Refunds</h2>
                 </div>
                 <div className="ml-11 space-y-3">
                   <p className="text-base leading-relaxed">
-                    Due to the perishable nature of our products, we have a
-                    limited return policy:
+                    We stand behind the quality of our spices. Our return policy ensures your satisfaction:
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-base ml-4">
-                    <li>Returns accepted within 24 hours of delivery</li>
+                    <li>Returns accepted within 7 days of delivery</li>
                     <li>Products must be in original packaging and unopened</li>
-                    <li>Quality issues will be addressed immediately</li>
-                    <li>Refunds processed within 5-7 business days</li>
+                    <li>Quality issues will be addressed immediately with full refund or replacement</li>
+                    <li>Refunds processed within 5-7 business days to the original payment method</li>
                   </ul>
                 </div>
               </section>
@@ -191,7 +192,7 @@ export default function TermsAndConditions() {
               {/* Section 6 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">6</span>
                   </div>
                   <h2 className="text-2xl font-bold">
@@ -200,7 +201,7 @@ export default function TermsAndConditions() {
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Users className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <p className="text-base leading-relaxed">
                         Customers are responsible for providing accurate
@@ -215,7 +216,7 @@ export default function TermsAndConditions() {
               {/* Section 7 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">7</span>
                   </div>
                   <h2 className="text-2xl font-bold">
@@ -235,7 +236,7 @@ export default function TermsAndConditions() {
               {/* Section 8 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">8</span>
                   </div>
                   <h2 className="text-2xl font-bold">Modifications</h2>
@@ -251,21 +252,34 @@ export default function TermsAndConditions() {
               </section>
 
               {/* Contact Section */}
-              <section className="bg-gradient-to-r from-background-cream to-background-cream/50 p-6 rounded-xl border border-amber-800 /20">
-                <h3 className="text-xl font-bold text-brand-purple mb-3">
+              <section className="bg-gradient-to-r from-cream to-cream/50 p-6 rounded-xl border border-gold/20">
+                <h3 className="text-xl font-bold text-navy mb-3">
                   Contact Information
                 </h3>
-                <p className="text-base leading-relaxed text-brand-purple/80">
+                <p className="text-base leading-relaxed text-navy/80">
                   For any questions regarding these terms and conditions, please
                   contact us at:
                 </p>
-                <div className="mt-3 space-y-1 text-sm">
-                  <p>
-                    <strong>Email:</strong> southmithai@gmail.com
-                  </p>
-                  <p>
-                    <strong>Phone:</strong> 1800 309 4983
-                  </p>
+                <div className="mt-3 space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-spice flex-shrink-0" />
+                    <span>
+                      <strong>Email:</strong> support@swadkerala.com
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-spice flex-shrink-0" />
+                    <span>
+                      <strong>Phone:</strong> 7907816972
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <MapPin className="w-4 h-4 text-spice mt-1 flex-shrink-0" />
+                    <span>
+                      <strong>Address:</strong> Galaxy traders, Karimannoor PO- 685581,<br />
+                      Mannarathara - Kotta Road, Idukki Dist, Kerala
+                    </span>
+                  </div>
                 </div>
               </section>
             </div>

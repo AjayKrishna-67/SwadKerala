@@ -40,40 +40,40 @@ export default function PrivacyPolicy() {
   }, [activeCustomer]);
 
   return (
-    <div className="min-h-screen mt-20 bg-gradient-to-br from-background-cream via-white to-background-cream">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-cream via-white to-cream">
       {/* Header */}
 
       <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-navy to-spice rounded-full mb-6">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-brand-purple mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-navy mb-4">
             Privacy Policy
           </h1>
-          <p className="text-lg text-brand-purple/70 max-w-2xl mx-auto">
+          <p className="text-lg text-navy/70 max-w-2xl mx-auto">
             Your privacy is important to us. This policy explains how we
             collect, use, and protect your personal information when you use our
-            South Indian sweets and snacks platform.
+            SwadKerala platform for authentic Kerala spices.
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-800 /10 overflow-hidden">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gold/20 overflow-hidden">
           <div className="p-8 sm:p-12">
-            <div className="space-y-8 text-brand-purple">
+            <div className="space-y-8 text-navy">
               {/* Section 1 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">1</span>
                   </div>
                   <h2 className="text-2xl font-bold">Information We Collect</h2>
                 </div>
                 <div className="ml-11 space-y-4">
                   <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Users className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Personal Information
@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Database className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Database className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Usage Information
@@ -120,7 +120,7 @@ export default function PrivacyPolicy() {
               {/* Section 2 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">2</span>
                   </div>
                   <h2 className="text-2xl font-bold">
@@ -129,7 +129,7 @@ export default function PrivacyPolicy() {
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Mail className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Order Processing & Delivery
@@ -142,7 +142,7 @@ export default function PrivacyPolicy() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Bell className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Bell className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">Communication</h3>
                       <p className="text-base leading-relaxed">
@@ -153,7 +153,7 @@ export default function PrivacyPolicy() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Settings className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Settings className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Service Improvement
@@ -170,7 +170,7 @@ export default function PrivacyPolicy() {
               {/* Section 3 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">3</span>
                   </div>
                   <h2 className="text-2xl font-bold">Information Sharing</h2>
@@ -206,14 +206,14 @@ export default function PrivacyPolicy() {
               {/* Section 4 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">4</span>
                   </div>
                   <h2 className="text-2xl font-bold">Data Security</h2>
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Lock className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Lock className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Protection Measures
@@ -231,8 +231,8 @@ export default function PrivacyPolicy() {
                     </div>
                   </div>
 
-                  <div className="bg-background-cream/50 p-4 rounded-lg border border-amber-800 /20">
-                    <p className="text-sm font-medium text-brand-purple">
+                  <div className="bg-cream/50 p-4 rounded-lg border border-gold/20">
+                    <p className="text-sm font-medium text-navy">
                       <strong>Note:</strong> While we strive to protect your
                       information, no method of transmission over the internet
                       is 100% secure. We cannot guarantee absolute security.
@@ -244,7 +244,7 @@ export default function PrivacyPolicy() {
               {/* Section 5 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">5</span>
                   </div>
                   <h2 className="text-2xl font-bold">Cookies & Tracking</h2>
@@ -283,7 +283,7 @@ export default function PrivacyPolicy() {
               {/* Section 6 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">6</span>
                   </div>
                   <h2 className="text-2xl font-bold">Your Rights</h2>
@@ -329,7 +329,7 @@ export default function PrivacyPolicy() {
               {/* Section 7 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">7</span>
                   </div>
                   <h2 className="text-2xl font-bold">Data Retention</h2>
@@ -349,7 +349,7 @@ export default function PrivacyPolicy() {
               {/* Section 8 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">8</span>
                   </div>
                   <h2 className="text-2xl font-bold">Children's Privacy</h2>
@@ -368,7 +368,7 @@ export default function PrivacyPolicy() {
               {/* Section 9 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">9</span>
                   </div>
                   <h2 className="text-2xl font-bold">Policy Updates</h2>
@@ -385,25 +385,31 @@ export default function PrivacyPolicy() {
               </section>
 
               {/* Contact Section */}
-              <section className="bg-gradient-to-r from-background-cream to-background-cream/50 p-6 rounded-xl border border-amber-800 /20">
-                <h3 className="text-xl font-bold text-brand-purple mb-3">
+              <section className="bg-gradient-to-r from-cream to-cream/50 p-6 rounded-xl border border-gold/20">
+                <h3 className="text-xl font-bold text-navy mb-3">
                   Contact Us
                 </h3>
-                <p className="text-base leading-relaxed text-brand-purple/80 mb-4">
+                <p className="text-base leading-relaxed text-navy/80 mb-4">
                   If you have any questions about this privacy policy or our
                   data practices, please contact us:
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-amber-800  flex-shrink-0" />
+                    <Mail className="w-4 h-4 text-spice flex-shrink-0" />
                     <span>
-                      <strong>Email:</strong>southmithai@gmail.com
+                      <strong>Email:</strong> support@swadkerala.com
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-amber-800  flex-shrink-0" />
+                    <Phone className="w-4 h-4 text-spice flex-shrink-0" />
                     <span>
-                      <strong>Phone:</strong> 1800 309 4983
+                      <strong>Phone:</strong> 7907816972
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-spice flex-shrink-0" />
+                    <span>
+                      <strong>Address:</strong> Galaxy traders, Karimannoor PO- 685581, Mannarathara - Kotta Road, Idukki Dist, Kerala
                     </span>
                   </div>
                 </div>

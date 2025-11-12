@@ -39,7 +39,7 @@ export default function AccountHeader({ activeCustomer }: AccountHeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Header */}
         <div className="lg:hidden flex items-center justify-between py-4">
-          <h1 className="text-xl font-bold text-gray-900">My Account</h1>
+          <h1 className="text-xl font-bold text-white">My Account</h1>
           <button
             type="button"
             className="p-2 rounded-full bg-navy-light transition-all duration-200"
@@ -86,7 +86,9 @@ export default function AccountHeader({ activeCustomer }: AccountHeaderProps) {
                     }
                     onClick={() => setMenuOpen(false)}
                   >
-                    <item.icon className="h-5 w-5 mr-3 text-navy" />
+                    <item.icon
+                      className="h-5 w-5 mr-3 text-navy"
+                    />
                     {item.name}
                   </NavLink>
                 ),
@@ -97,19 +99,19 @@ export default function AccountHeader({ activeCustomer }: AccountHeaderProps) {
 
         {/* Desktop Header */}
         <div className="hidden lg:flex flex-col items-center py-6">
-          <h1 className="text-2xl font-bold text-gray-900">My Account</h1>
+          <h1 className="text-2xl font-bold text-white">My Account</h1>
           <nav className="flex space-x-6 mt-4">
             {navigation.map((item) =>
               item.isSignOut ? (
                 <Form key={item.href} method="post" action={item.href}>
                   <button
-                    type="submit"
-                    className="flex items-center px-4 py-2 text-base font-medium text-gray-700  hover:text-navy rounded-md transition-all duration-200"
+                    type="submit" 
+                    className="flex items-center px-4 py-2 text-base font-medium text-white rounded-md transition-all duration-200"
                     onClick={() =>
                       setTimeout(() => (window.location.href = '/'), 50)
                     }
                   >
-                    <item.icon className="h-5 w-5 mr-2 text-navy" />
+                    <item.icon className="h-5 w-5 mr-2" />
                     {item.name}
                   </button>
                 </Form>
@@ -122,11 +124,11 @@ export default function AccountHeader({ activeCustomer }: AccountHeaderProps) {
                     `flex items-center px-4 py-2 text-base font-medium rounded-md transition-all duration-200 ${
                       isActive
                         ? 'bg-red-50 text-navy'
-                        : 'text-gray-700 hover:bg-red-50 hover:text-navy'
+                        : 'text-white'  
                     }`
                   }
                 >
-                  <item.icon className="h-5 w-5 mr-2 text-navy" />
+                  <item.icon className="h-5 w-5 mr-2" />
                   {item.name}
                 </NavLink>
               ),
