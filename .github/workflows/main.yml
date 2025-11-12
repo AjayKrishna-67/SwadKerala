@@ -18,18 +18,18 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/Web_Pro/snack_website
+            cd /home/ubuntu/Web_Pro/SwadKerala
             sudo git reset --hard HEAD
             sudo git clean -fd
             sudo git pull origin main      
             sudo npm install
           
             # Check if PM2 is running a process named "web"
-            if pm2 list | grep -q "web"; then
-              echo "🔁 PM2 process 'web' exists. Restarting..."
-              pm2 restart web
+            if pm2 list | grep -q "swadkerala"; then
+              echo "🔁 PM2 process 'swadkerala' exists. Restarting..."
+              pm2 restart swadkerala
             else
-              echo "▶️ PM2 process 'web' not found. Starting..."
-              pm2 start npm --name "web" -- start
+              echo "▶️ PM2 process 'swadkerala' not found. Starting..."
+              pm2 start npm --name "swadkerala" -- start
           
             fi
