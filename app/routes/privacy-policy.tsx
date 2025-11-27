@@ -17,6 +17,8 @@ import {
   Users,
   Settings,
   Bell,
+  XCircle,
+  CreditCard,
 } from 'lucide-react';
 
 export async function loader({ request }: { request: Request }) {
@@ -390,6 +392,78 @@ export default function PrivacyPolicy() {
                     updated policy on this page and updating the "Last updated"
                     date. We encourage you to review this policy periodically.
                   </p>
+                </div>
+              </section>
+
+              {/* Section 10 */}
+              <section>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">10</span>
+                  </div>
+                  <h2 className="text-2xl font-bold">Cancellation Policy</h2>
+                </div>
+                <div className="ml-11 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-lg">
+                        Cancellation Before Shipping
+                      </h3>
+                      <p className="text-base leading-relaxed">
+                        You have the right to cancel your order at any time before it has been shipped. 
+                        We understand that circumstances may change, and we want to make the cancellation 
+                        process as smooth as possible for you.
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-base ml-4 mt-2">
+                        <li>
+                          <strong>Time Window:</strong> Orders can be cancelled anytime before the 
+                          shipping confirmation email is sent to you
+                        </li>
+                        <li>
+                          <strong>Processing Time:</strong> Cancellation requests are typically 
+                          processed within 24 hours of receipt
+                        </li>
+                        <li>
+                          <strong>Automatic Cancellation:</strong> If your order has not yet entered 
+                          the processing stage, you may be able to cancel it directly from your account dashboard
+                        </li>
+                        <li>
+                          <strong>Manual Cancellation:</strong> For orders that have entered processing, 
+                          please contact our customer service team immediately
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <CreditCard className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-lg">Refund Process</h3>
+                      <p className="text-base leading-relaxed">
+                        When you cancel an order before shipping, you are entitled to a refund of 
+                        the amount paid:
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-base ml-4 mt-2">
+                        <li>
+                          <strong>Refund Method:</strong> Refunds will be processed to the original 
+                          payment method used for the order
+                        </li>
+                        <li>
+                          <strong>Processing Time:</strong> Refunds typically appear in your account 
+                          within 5–10 business days, depending on your bank or payment provider
+                        </li>
+                        <li>
+                          <strong>Shipping Charges:</strong> If applicable, shipping charges will also 
+                          be refunded in full when cancelling before shipment
+                        </li>
+                        <li>
+                          <strong>Confirmation:</strong> You will receive an email confirmation once your 
+                          cancellation has been processed and refund initiated
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </section>
 
