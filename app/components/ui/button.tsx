@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import { trackButtonClick } from '~/utils/meta-pixel';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,6 +22,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'default',
       size = 'default',
       asChild = false,
+      onClick,
       ...props
     },
     ref,
@@ -48,7 +50,28 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`;
 
-    return <Comp className={classes} ref={ref} {...props} />;
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      // Track button click for Meta Pixel
+      const buttonName =
+        typeof props.children === 'string'
+          ? props.children
+          : props['aria-label'] || 'Button';
+      trackButtonClick(buttonName, 'UIButton');
+
+      // Call original onClick if provided
+      if (onClick) {
+        onClick(e);
+      }
+    };
+
+    return (
+      <Comp
+        className={classes}
+        ref={ref}
+        onClick={asChild ? undefined : handleClick}
+        {...props}
+      />
+    );
   },
 );
 

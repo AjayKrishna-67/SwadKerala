@@ -57,6 +57,10 @@ import {
 } from '~/providers/customPlugins/customPlugin';
 import { Header } from '~/components/header/Header';
 import { getCollections } from '~/providers/collections/collections';
+import {
+  trackInitiateCheckout,
+  trackButtonClick,
+} from '~/utils/meta-pixel';
 import Footer from '~/components/footer/Footer';
 import { CouponModal } from '~/components/couponcode/CouponModal';
 import ToastNotification from '~/components/ToastNotification';
@@ -823,6 +827,29 @@ export default function CheckoutPage() {
   };
 
   const paymentError = getPaymentError(error);
+
+  // Track InitiateCheckout event when checkout page loads
+  useEffect(() => {
+    if (activeOrder && activeOrder.lines.length > 0) {
+      const orderValue = activeOrder.totalWithTax
+        ? activeOrder.totalWithTax / 100
+        : undefined;
+      const contentIds = activeOrder.lines.map(
+        (line) => line.productVariant.id,
+      );
+      const numItems = activeOrder.lines.reduce(
+        (sum, line) => sum + line.quantity,
+        0,
+      );
+
+      trackInitiateCheckout(
+        orderValue,
+        activeOrder.currencyCode,
+        contentIds,
+        numItems,
+      );
+    }
+  }, []); // Only track once on mount
 
   useEffect(() => {
     if (
