@@ -23,8 +23,7 @@ jobs:
             sudo git clean -fd
             sudo git pull origin main      
             sudo npm install
-            sudo npm run generate
-            
+          
             # Check if PM2 is running a process named "web"
             if pm2 list | grep -q "swadkerala"; then
               echo "🔁 PM2 process 'swadkerala' exists. Restarting..."
@@ -32,4 +31,5 @@ jobs:
             else
               echo "▶️ PM2 process 'swadkerala' not found. Starting..."
               pm2 start npm --name "swadkerala" -- start
+          
             fi
