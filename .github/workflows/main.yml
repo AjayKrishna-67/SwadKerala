@@ -11,22 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy on EC2
+      - name: Run deploy script on EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -e   # ✅ STOP everything on first erro  
             cd /home/ubuntu/Web_Pro/SwadKerala
-      
-            git reset --hard
-            git clean -fd
-            git pull origin main
-        
-            npm install
-            npm run build
-        
-            pm2 restart swadkerala || pm2 start npm --name swadkerala -- start
-
+            sudo git reset --hard HEAD
+            sudo git clean -fd
+            sudo git pull origin main      
+            sudo npm install
+          
+            # Check if PM2 is running a process named "swadkerala"
+            if pm2 list | grep -q "swadkerala"; then
+              echo "🔁 PM2 process 'swadkerala' exists. Restarting..."
+              pm2 restart swadkerala
+            else
+              echo "▶️ PM2 process 'swadkerala' not found. Starting..."
+              pm2 start npm --name "swadkerala" -- start
+            fi
