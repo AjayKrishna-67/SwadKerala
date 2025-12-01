@@ -74,7 +74,7 @@ export function SingleBanner({ banners }: SingleBannerProps) {
 
   return (
     <section className="w-full mb-8 relative z-[10]">
-      <div className="w-full aspect-[4/1] relative">
+      <div className="w-full aspect-[3/1] relative">
         {banners.map((banner, index) => (
           <img
             key={banner.id}
