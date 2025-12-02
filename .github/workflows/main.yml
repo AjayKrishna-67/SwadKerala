@@ -1,4 +1,4 @@
-name: RemixSite
+name: SwadKerala
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
             sudo git pull origin main      
             sudo npm install
           
-            # Check if PM2 is running a process named "swadkerala"
+            # Check if PM2 is running a process named "web"
             if pm2 list | grep -q "swadkerala"; then
               echo "🔁 PM2 process 'swadkerala' exists. Restarting..."
               pm2 restart swadkerala
