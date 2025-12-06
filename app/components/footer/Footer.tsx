@@ -66,7 +66,7 @@ export default function Footer() {
                     >
                       Terms of Service
                     </a>
-                    <p className="block text-cream transition-colors text-sm">FSSI: 21325176000258</p>
+                    <p className="block text-cream transition-colors text-sm">FSSAI: 21325176000258</p>
                   </nav>
                 </div>
 
