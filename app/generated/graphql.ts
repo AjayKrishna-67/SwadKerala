@@ -1937,6 +1937,7 @@ export type Mutation = {
   login: NativeAuthenticationResult;
   /** End the current authenticated session */
   logout: Success;
+  /** Add other instructions to the order custom fields */
   otherInstructions: Order;
   /** Regenerate and send a verification token for a new Customer registration. Only applicable if `authOptions.requireVerification` is set to true. */
   refreshCustomerVerification: RefreshCustomerVerificationResult;
