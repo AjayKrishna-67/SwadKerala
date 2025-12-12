@@ -223,7 +223,7 @@ export function CartTray({
                           <Link
                             to="/checkout"
                             onClick={() => onClose(false)}
-                            className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-black hover:text-black hover:bg-white hover:border-black transition-colors"
+                            className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-spice hover:text-spice hover:bg-white hover:border-spice transition-colors"
                           >
                             {t('cart.checkout')}
                           </Link>

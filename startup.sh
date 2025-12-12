@@ -1,5 +1,5 @@
 !#/bin/bash/
 
-sudo fuser -k 8003/tcp
+sudo fuser -k 8004/tcp
 
-npm run dev
+sudo pnpm start
