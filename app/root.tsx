@@ -34,7 +34,7 @@ import { useChangeLanguage } from 'remix-i18next';
 import { useTranslation } from 'react-i18next';
 import { getI18NextServer } from '~/i18next.server';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { OrderWithOptionalCreatedAt } from '~/types/order';
+import { OrderDetailFragment } from '~/generated/graphql';
 
 const devMode =
   typeof process !== 'undefined' && process.env.NODE_ENV === 'development';
@@ -161,6 +161,48 @@ export default function App() {
         <link rel="icon" href="/favicon.ico" type="image/png" />
         <Meta />
         <Links />
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-95MQ2X4KTE"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-95MQ2X4KTE');
+            `,
+          }}
+        />
+        {/* Meta Pixel Code */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '864569379342634');
+              fbq('track', 'PageView');
+            `,
+          }}
+        />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=864569379342634&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+        {/* End Meta Pixel Code */}
         {/* 👇 this must be before the body to inject early */}
         <script
           dangerouslySetInnerHTML={{
@@ -195,7 +237,7 @@ export default function App() {
             <CartTray
               open={open}
               onClose={setOpen}
-              activeOrder={activeOrder as OrderWithOptionalCreatedAt}
+              activeOrder={(activeOrder as any as OrderDetailFragment | undefined) ?? null}
               adjustOrderLine={adjustOrderLine}
               removeItem={removeItem}
             />

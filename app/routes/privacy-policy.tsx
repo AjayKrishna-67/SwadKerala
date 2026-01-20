@@ -17,6 +17,8 @@ import {
   Users,
   Settings,
   Bell,
+  XCircle,
+  CreditCard,
 } from 'lucide-react';
 
 export async function loader({ request }: { request: Request }) {
@@ -40,40 +42,43 @@ export default function PrivacyPolicy() {
   }, [activeCustomer]);
 
   return (
-    <div className="min-h-screen mt-20 bg-gradient-to-br from-background-cream via-white to-background-cream">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-cream via-white to-cream">
       {/* Header */}
 
       <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-navy to-spice rounded-full mb-6">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-brand-purple mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-navy mb-4">
             Privacy Policy
           </h1>
-          <p className="text-lg text-brand-purple/70 max-w-2xl mx-auto">
-            Your privacy is important to us. This policy explains how we
-            collect, use, and protect your personal information when you use our
-            South Indian sweets and snacks platform.
+          <p className="text-lg text-navy/70 max-w-2xl mx-auto">
+            At SwadKerala, your privacy is our priority. This policy explains how we
+            collect, use, and protect your personal information when you shop for
+            authentic Kerala spices on our platform.
+          </p>
+          <p className="text-sm text-navy/60 mt-4">
+            <strong>Last Updated:</strong> November 2024
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-800 /10 overflow-hidden">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gold/20 overflow-hidden">
           <div className="p-8 sm:p-12">
-            <div className="space-y-8 text-brand-purple">
+            <div className="space-y-8 text-navy">
               {/* Section 1 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">1</span>
                   </div>
                   <h2 className="text-2xl font-bold">Information We Collect</h2>
                 </div>
                 <div className="ml-11 space-y-4">
                   <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Users className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Personal Information
@@ -97,7 +102,7 @@ export default function PrivacyPolicy() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Database className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Database className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Usage Information
@@ -120,7 +125,7 @@ export default function PrivacyPolicy() {
               {/* Section 2 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">2</span>
                   </div>
                   <h2 className="text-2xl font-bold">
@@ -129,38 +134,41 @@ export default function PrivacyPolicy() {
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Mail className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Order Processing & Delivery
                       </h3>
                       <p className="text-base leading-relaxed">
-                        We use your information to process orders, arrange
-                        delivery, and provide customer support.
+                        We use your information to process your authentic Kerala spice orders,
+                        arrange delivery to your doorstep, provide order tracking, and offer
+                        exceptional customer support for all your spice needs.
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Bell className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Bell className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">Communication</h3>
                       <p className="text-base leading-relaxed">
-                        We may send you order confirmations, delivery updates,
-                        promotional offers, and important service announcements.
+                        We may send you order confirmations, delivery updates for your spice orders,
+                        exclusive offers on Kerala spices, seasonal promotions, and important service
+                        announcements. You can opt-out of promotional emails anytime.
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Settings className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Settings className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Service Improvement
                       </h3>
                       <p className="text-base leading-relaxed">
-                        We analyze usage patterns to improve our platform,
-                        personalize your experience, and develop new features.
+                        We analyze usage patterns to improve our platform, personalize your
+                        shopping experience with relevant spice recommendations, optimize our
+                        product offerings, and develop new features to better serve your culinary needs.
                       </p>
                     </div>
                   </div>
@@ -170,7 +178,7 @@ export default function PrivacyPolicy() {
               {/* Section 3 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">3</span>
                   </div>
                   <h2 className="text-2xl font-bold">Information Sharing</h2>
@@ -206,14 +214,14 @@ export default function PrivacyPolicy() {
               {/* Section 4 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">4</span>
                   </div>
                   <h2 className="text-2xl font-bold">Data Security</h2>
                 </div>
                 <div className="ml-11 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Lock className="w-5 h-5 text-amber-800  mt-1 flex-shrink-0" />
+                    <Lock className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">
                         Protection Measures
@@ -231,11 +239,13 @@ export default function PrivacyPolicy() {
                     </div>
                   </div>
 
-                  <div className="bg-background-cream/50 p-4 rounded-lg border border-amber-800 /20">
-                    <p className="text-sm font-medium text-brand-purple">
-                      <strong>Note:</strong> While we strive to protect your
-                      information, no method of transmission over the internet
-                      is 100% secure. We cannot guarantee absolute security.
+                  <div className="bg-cream/50 p-4 rounded-lg border border-gold/20">
+                    <p className="text-sm font-medium text-navy">
+                      <strong>Note:</strong> At SwadKerala, we take your data security seriously
+                      and implement industry-leading practices. While we strive to protect your
+                      information with the highest standards, no method of transmission over the
+                      internet is 100% secure. We continuously update our security measures to
+                      ensure your information remains protected.
                     </p>
                   </div>
                 </div>
@@ -244,7 +254,7 @@ export default function PrivacyPolicy() {
               {/* Section 5 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">5</span>
                   </div>
                   <h2 className="text-2xl font-bold">Cookies & Tracking</h2>
@@ -283,7 +293,7 @@ export default function PrivacyPolicy() {
               {/* Section 6 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">6</span>
                   </div>
                   <h2 className="text-2xl font-bold">Your Rights</h2>
@@ -329,7 +339,7 @@ export default function PrivacyPolicy() {
               {/* Section 7 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">7</span>
                   </div>
                   <h2 className="text-2xl font-bold">Data Retention</h2>
@@ -337,11 +347,12 @@ export default function PrivacyPolicy() {
                 <div className="ml-11">
                   <p className="text-base leading-relaxed">
                     We retain your personal information for as long as necessary
-                    to provide our services and fulfill the purposes outlined in
-                    this policy. Account information is typically retained for
-                    the duration of your account plus a reasonable period for
-                    legal and business purposes. You may request deletion of
-                    your account and associated data at any time.
+                    to provide our Kerala spice delivery services and fulfill the purposes
+                    outlined in this policy. Account information is typically retained for
+                    the duration of your active account plus a reasonable period for
+                    legal, tax, and business purposes (typically 3-5 years). You may request
+                    deletion of your account and associated data at any time by contacting
+                    our support team.
                   </p>
                 </div>
               </section>
@@ -349,7 +360,7 @@ export default function PrivacyPolicy() {
               {/* Section 8 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">8</span>
                   </div>
                   <h2 className="text-2xl font-bold">Children's Privacy</h2>
@@ -368,7 +379,7 @@ export default function PrivacyPolicy() {
               {/* Section 9 */}
               <section>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-amber-800  to-brand-orange rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-sm">9</span>
                   </div>
                   <h2 className="text-2xl font-bold">Policy Updates</h2>
@@ -384,26 +395,104 @@ export default function PrivacyPolicy() {
                 </div>
               </section>
 
+              {/* Section 10 */}
+              <section>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-navy to-spice rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">10</span>
+                  </div>
+                  <h2 className="text-2xl font-bold">Cancellation Policy</h2>
+                </div>
+                <div className="ml-11 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-lg">
+                        Cancellation Before Shipping
+                      </h3>
+                      <p className="text-base leading-relaxed">
+                        You have the right to cancel your order at any time before it has been shipped. 
+                        We understand that circumstances may change, and we want to make the cancellation 
+                        process as smooth as possible for you.
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-base ml-4 mt-2">
+                        <li>
+                          <strong>Time Window:</strong> Orders can be cancelled anytime before the 
+                          shipping confirmation email is sent to you
+                        </li>
+                        <li>
+                          <strong>Processing Time:</strong> Cancellation requests are typically 
+                          processed within 24 hours of receipt
+                        </li>
+                        <li>
+                          <strong>Automatic Cancellation:</strong> If your order has not yet entered 
+                          the processing stage, you may be able to cancel it directly from your account dashboard
+                        </li>
+                        <li>
+                          <strong>Manual Cancellation:</strong> For orders that have entered processing, 
+                          please contact our customer service team immediately
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <CreditCard className="w-5 h-5 text-spice mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-lg">Refund Process</h3>
+                      <p className="text-base leading-relaxed">
+                        When you cancel an order before shipping, you are entitled to a refund of 
+                        the amount paid:
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-base ml-4 mt-2">
+                        <li>
+                          <strong>Refund Method:</strong> Refunds will be processed to the original 
+                          payment method used for the order
+                        </li>
+                        <li>
+                          <strong>Processing Time:</strong> Refunds typically appear in your account 
+                          within 5–10 business days, depending on your bank or payment provider
+                        </li>
+                        <li>
+                          <strong>Shipping Charges:</strong> If applicable, shipping charges will also 
+                          be refunded in full when cancelling before shipment
+                        </li>
+                        <li>
+                          <strong>Confirmation:</strong> You will receive an email confirmation once your 
+                          cancellation has been processed and refund initiated
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
               {/* Contact Section */}
-              <section className="bg-gradient-to-r from-background-cream to-background-cream/50 p-6 rounded-xl border border-amber-800 /20">
-                <h3 className="text-xl font-bold text-brand-purple mb-3">
+              <section className="bg-gradient-to-r from-cream to-cream/50 p-6 rounded-xl border border-gold/20">
+                <h3 className="text-xl font-bold text-navy mb-3">
                   Contact Us
                 </h3>
-                <p className="text-base leading-relaxed text-brand-purple/80 mb-4">
+                <p className="text-base leading-relaxed text-navy/80 mb-4">
                   If you have any questions about this privacy policy or our
                   data practices, please contact us:
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-amber-800  flex-shrink-0" />
+                    <Mail className="w-4 h-4 text-spice flex-shrink-0" />
                     <span>
-                      <strong>Email:</strong>southmithai@gmail.com
+                      <strong>Email:</strong> support@swadkerala.com
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-amber-800  flex-shrink-0" />
+                    <Phone className="w-4 h-4 text-spice flex-shrink-0" />
                     <span>
-                      <strong>Phone:</strong> 1800 309 4983
+                      <strong>Phone:</strong> 7907816972
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-spice flex-shrink-0" />
+                    <span>
+                      <strong>Address:</strong> Galaxy traders, Karimannoor PO- 685581, Mannarathara - Kotta Road, Idukki Dist, Kerala
                     </span>
                   </div>
                 </div>

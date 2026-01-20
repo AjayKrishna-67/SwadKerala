@@ -44,19 +44,22 @@ import { useTranslation } from 'react-i18next';
 import { ErrorCode, type ErrorResult } from '~/generated/graphql';
 import { CartContents } from '~/components/cart/CartContents';
 import { CartTotals } from '~/components/cart/CartTotals';
-import { ApplyLoyaltyPoints } from '~/components/cart/ApplyLoyaltyPoints';
+  // import { ApplyLoyaltyPoints } from '~/components/cart/ApplyLoyaltyPoints';
 import { Link } from '@remix-run/react';
 import { RazorpayPayments } from '~/components/checkout/razorpay/RazorpayPayments';
 import { OrderInstructions } from '~/components/checkout/OrderInstructions';
 import {
   otherInstructions,
-  applyLoyaltyPoints,
-  removeLoyaltyPoints,
-  getLoyaltyPointsConfig,
-  updateOrderPlacedAtISTMutation,
+  // applyLoyaltyPoints,
+  // removeLoyaltyPoints,
+  // getLoyaltyPointsConfig,
 } from '~/providers/customPlugins/customPlugin';
 import { Header } from '~/components/header/Header';
 import { getCollections } from '~/providers/collections/collections';
+import {
+  trackInitiateCheckout,
+  trackButtonClick,
+} from '~/utils/meta-pixel';
 import Footer from '~/components/footer/Footer';
 import { CouponModal } from '~/components/couponcode/CouponModal';
 import ToastNotification from '~/components/ToastNotification';
@@ -91,8 +94,8 @@ export async function loader({ request }: DataFunctionArgs) {
   }
 
   // Fetch loyalty points configuration
-  const loyaltyConfig = await getLoyaltyPointsConfig({ request });
-  const pointsPerRupee = loyaltyConfig?.pointsPerRupee ?? 100; // Fallback to 100 if undefined
+  // const loyaltyConfig = await getLoyaltyPointsConfig({ request });
+  // const pointsPerRupee = loyaltyConfig?.pointsPerRupee ?? 100; // Fallback to 100 if undefined
 
   // Coupon removal logic
   if (activeOrder?.couponCodes && activeOrder.couponCodes.length > 0) {
@@ -172,15 +175,15 @@ export async function loader({ request }: DataFunctionArgs) {
   const { activeCustomer } = await getActiveCustomerAddresses({ request });
 
   // Fetch loyalty points for signed-in user
-  let loyaltyPoints = null;
-  try {
-    const activeCustomerResponse = await getActiveCustomer({ request });
-    loyaltyPoints =
-      activeCustomerResponse.activeCustomer?.customFields
-        ?.loyaltyPointsAvailable ?? null;
-  } catch (err) {
-    loyaltyPoints = null;
-  }
+  // let loyaltyPoints = null;
+  // try {
+  //   const activeCustomerResponse = await getActiveCustomer({ request });
+  //   loyaltyPoints =
+  //     activeCustomerResponse.activeCustomer?.customFields
+  //       ?.loyaltyPointsAvailable ?? null;
+  // } catch (err) {
+  //   loyaltyPoints = null;
+  // }
 
   const { eligiblePaymentMethods } = await getEligiblePaymentMethods({
     request,
@@ -253,8 +256,8 @@ export async function loader({ request }: DataFunctionArgs) {
     brainTreeError,
     orderInstructions,
     couponCodes,
-    loyaltyPoints,
-    pointsPerRupee,
+    // loyaltyPoints,
+    // pointsPerRupee,
   });
 }
 
@@ -263,60 +266,60 @@ export async function action({ request }: DataFunctionArgs) {
   const action = body.get('action');
   const activeOrder = await getActiveOrder({ request });
 
-  if (action === 'applyLoyaltyPoints') {
-    const amount = Number(body.get('amount'));
-    if (!amount || isNaN(amount) || amount <= 0) {
-      return json(
-        { success: false, error: 'Invalid points amount.' },
-        { status: 400 },
-      );
-    }
-    try {
-      const result = await applyLoyaltyPoints(amount, { request });
-      if (result && result.id) {
-        return json({ success: true });
-      } else {
-        return json(
-          { success: false, error: 'Failed to apply loyalty points.' },
-          { status: 400 },
-        );
-      }
-    } catch (e: any) {
-      return json(
-        {
-          success: false,
-          error: e?.message || 'Error applying loyalty points.',
-        },
-        { status: 400 },
-      );
-    }
-  }
+  // if (action === 'applyLoyaltyPoints') {
+  //   const amount = Number(body.get('amount'));
+  //   if (!amount || isNaN(amount) || amount <= 0) {
+  //     return json(
+  //       { success: false, error: 'Invalid points amount.' },
+  //       { status: 400 },
+  //     );
+  //   }
+  //   try {
+  //     const result = await applyLoyaltyPoints(amount, { request });
+  //     if (result && result.id) {
+  //       return json({ success: true });
+  //     } else {
+  //       return json(
+  //         { success: false, error: 'Failed to apply loyalty points.' },
+  //         { status: 400 },
+  //       );
+  //     }
+  //   } catch (e: any) {
+  //     return json(
+  //       {
+  //         success: false,
+  //         error: e?.message || 'Error applying loyalty points.',
+  //       },
+  //       { status: 400 },
+  //     );
+  //   }
+  // }
 
-  if (action === 'removeLoyaltyPoints') {
-    try {
-      const result = await removeLoyaltyPoints({ request });
-      if (result && result.__typename === 'Order' && result.id) {
-        return json({ success: true });
-      } else {
-        return json(
-          {
-            success: false,
-            error:
-              (result as any)?.message || 'Failed to remove loyalty points.',
-          },
-          { status: 400 },
-        );
-      }
-    } catch (e: any) {
-      return json(
-        {
-          success: false,
-          error: e?.message || 'Error removing loyalty points.',
-        },
-        { status: 400 },
-      );
-    }
-  }
+  // if (action === 'removeLoyaltyPoints') {
+  //   try {
+  //     const result = await removeLoyaltyPoints({ request });
+  //     if (result && result.__typename === 'Order' && result.id) {
+  //       return json({ success: true });
+  //     } else {
+  //       return json(
+  //         {
+  //           success: false,
+  //           error:
+  //             (result as any)?.message || 'Failed to remove loyalty points.',
+  //         },
+  //         { status: 400 },
+  //       );
+  //     }
+  //   } catch (e: any) {
+  //     return json(
+  //       {
+  //         success: false,
+  //         error: e?.message || 'Error removing loyalty points.',
+  //       },
+  //       { status: 400 },
+  //     );
+  //   }
+  // }
 
   if (action === 'setOrderCustomer' || action === 'setCheckoutShipping') {
     return json({ success: true });
@@ -678,20 +681,6 @@ export async function action({ request }: DataFunctionArgs) {
     );
 
     if (result.addPaymentToOrder.__typename === 'Order') {
-      // Call UpdateOrderPlacedAtIST after successful payment
-      try {
-        await updateOrderPlacedAtISTMutation(result.addPaymentToOrder.id, {
-          request,
-        });
-        console.log(
-          'OrderPlacedAtIST updated successfully for order:',
-          result.addPaymentToOrder.id,
-        );
-      } catch (error: any) {
-        console.error('Failed to update OrderPlacedAtIST:', error);
-        // Optionally handle the error (e.g., log it, but proceed with redirect)
-      }
-
       return redirect(
         `/checkout/confirmation/${result.addPaymentToOrder.code}`,
       );
@@ -718,8 +707,8 @@ export default function CheckoutPage() {
     eligiblePaymentMethods,
     orderInstructions,
     couponCodes,
-    loyaltyPoints,
-    pointsPerRupee,
+    // loyaltyPoints,
+    // pointsPerRupee,
   } = loaderData;
 
   const {
@@ -823,6 +812,29 @@ export default function CheckoutPage() {
   };
 
   const paymentError = getPaymentError(error);
+
+  // Track InitiateCheckout event when checkout page loads
+  useEffect(() => {
+    if (activeOrder && activeOrder.lines.length > 0) {
+      const orderValue = activeOrder.totalWithTax
+        ? activeOrder.totalWithTax / 100
+        : undefined;
+      const contentIds = activeOrder.lines.map(
+        (line) => line.productVariant.id,
+      );
+      const numItems = activeOrder.lines.reduce(
+        (sum, line) => sum + line.quantity,
+        0,
+      );
+
+      trackInitiateCheckout(
+        orderValue,
+        activeOrder.currencyCode,
+        contentIds,
+        numItems,
+      );
+    }
+  }, []); // Only track once on mount
 
   useEffect(() => {
     if (
@@ -993,7 +1005,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mt-20 bg-amber-100">
+    <div className="mt-20">
     
       <div className="lg:max-w-7xl max-w-2xl mx-auto pt-8 pb-24 px-4 sm:px-6 lg:px-8">
                   <h1 className="mt-3 text-center mb-10 text-navy text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
@@ -1197,13 +1209,13 @@ export default function CheckoutPage() {
             <div className="bg-white bg-transparent  p-6 rounded-lg shadow-sm border">
                           <h2 className="text-lg font-medium text-black mb-6">Summary</h2>
 
-              {loyaltyPoints && activeOrder?.id ? (
+              {/* {loyaltyPoints && activeOrder?.id ? (
                 <ApplyLoyaltyPoints
                   availablePoints={loyaltyPoints}
                   orderId={activeOrder.id}
                   pointsPerRupee={pointsPerRupee}
                 />
-              ) : null}
+              ) : null} */}
               <CartTotals order={activeOrder as any} />
               <CartContents
                 orderLines={visibleLines}
@@ -1318,7 +1330,7 @@ export default function CheckoutPage() {
                                     confirm that you have read, understand and
                                     accept our Terms of Use, Terms of Sale and
                                     Returns Policy and acknowledge that you have
-                                    read SouthMithai Store's Privacy Policy.
+                                    read Swadkerala Store's Privacy Policy.
                                   </p>
                     {isShippingMethodSelected && paymentMode && (
                       <>
@@ -1369,7 +1381,7 @@ export default function CheckoutPage() {
                                       confirm that you have read, understand and
                                       accept our Terms of Use, Terms of Sale and
                                       Returns Policy and acknowledge that you
-                                      have read KaaiKani Store's Privacy Policy.
+                                      have read Swadkerala Store's Privacy Policy.
                                     </p>
                                     <button
                                       type="submit"

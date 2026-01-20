@@ -66,6 +66,7 @@ export default function Footer() {
                     >
                       Terms of Service
                     </a>
+                    <p className="block text-cream transition-colors text-sm">FSSAI: 21325176000258</p>
                   </nav>
                 </div>
 
@@ -76,26 +77,26 @@ export default function Footer() {
                   </h4>
                   <address className="not-italic space-y-3 text-sm text-cream">
                     <p className="leading-normal">
-                      No.4d-1, Montfort Nagar,
+                      Galaxy traders, Karimannoor PO- 685581
                       <br />
-                      Dindigul main road,
+                      Mannarathara - Kotta Road,
                       <br />
-                      Pirattiyur, Trichy - 620009
+                      Idukki Dist, Kerala
                     </p>
                     <p className="mt-2">
                       <a
                         href="mailto:info@swadkerala.com"
                         className="hover:text-white transition-colors"
                       >
-                        swadkerala@gmail.com
+                        support@swadkerala.com
                       </a>
                     </p>
                     <p>
                       <a
-                        href="tel:18003094983"
+                        href="tel:7907816972"
                         className="hover:text-white transition-colors"
                       >
-                        1800 309 4983
+                        7907816972
                       </a>
                     </p>
                   </address>

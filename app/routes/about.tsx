@@ -16,9 +16,9 @@ import {
 
 export default function AboutUs() {
   return (
-    <div className="min-h-screen mt-20 bg-white">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-cream via-white to-cream">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-brand-hero-orange via-brand-hero-yellow to-brand-hero-light-orange py-20 md:py-32 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-navy via-navy-light to-spice py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('/pattern.png')] bg-center"></div>
         </div>
@@ -36,28 +36,28 @@ export default function AboutUs() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="bg-background-light-cream p-8 rounded-2xl shadow-sm">
-              <div className="w-16 h-16 bg-brand-accent-red/10 rounded-full flex items-center justify-center mb-6">
-                <Award className="w-8 h-8 text-brand-accent-red" />
+            <div className="bg-cream/50 p-8 rounded-2xl shadow-lg border border-gold/20">
+              <div className="w-16 h-16 bg-spice/10 rounded-full flex items-center justify-center mb-6">
+                <Award className="w-8 h-8 text-spice" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              <h3 className="text-2xl font-bold text-navy mb-4">
                 Our Mission
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-navy/70 leading-relaxed">
                 To bring authentic, pure spices from Kerala to kitchens worldwide.
                 We're committed to preserving the rich flavors and aromas of traditional
                 Kerala spices, ensuring every dish is enhanced with the finest quality
                 ingredients sourced directly from God's Own Country.
               </p>
             </div>
-            <div className="bg-background-light-cream p-8 rounded-2xl shadow-sm">
-              <div className="w-16 h-16 bg-brand-accent-red/10 rounded-full flex items-center justify-center mb-6">
-                <Globe className="w-8 h-8 text-brand-accent-red" />
+            <div className="bg-cream/50 p-8 rounded-2xl shadow-lg border border-gold/20">
+              <div className="w-16 h-16 bg-spice/10 rounded-full flex items-center justify-center mb-6">
+                <Globe className="w-8 h-8 text-spice" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              <h3 className="text-2xl font-bold text-navy mb-4">
                 Our Vision
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-navy/70 leading-relaxed">
                 To be recognized as the premier destination for authentic Kerala spices,
                 known for our commitment to purity, traditional sourcing methods, and
                 bringing the true flavors of Kerala to every kitchen around the world.
@@ -68,17 +68,17 @@ export default function AboutUs() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 bg-background-light-cream">
+      <section className="py-16 bg-cream/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <span className="inline-block px-4 py-1 bg-brand-accent-red/10 text-brand-accent-red rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 bg-spice/10 text-spice rounded-full text-sm font-medium mb-4">
               OUR STORY
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6">
               Our Spice Story
             </h2>
-              <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-              Swad Kerala was born from a passion to share the authentic flavors
+              <p className="text-navy/70 mb-8 leading-relaxed text-lg">
+              SwadKerala was born from a passion to share the authentic flavors
               of Kerala's rich spice heritage with the world. As part of the Kaaikani
               family, we leverage our expertise in quality sourcing to bring you
               pure, handpicked spices directly from Kerala's finest farms. With our
@@ -91,7 +91,7 @@ export default function AboutUs() {
                 href="https://play.google.com/store/apps/details?id=com.kaaikani.kaaikani&pcampaignid=web_share"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 text-brand-accent-red border border-brand-accent-red  rounded-full hover:bg-gray-50 transition-colors flex items-center gap-2"
+                className="px-6 py-2 text-spice border border-spice rounded-full hover:bg-cream transition-colors flex items-center gap-2"
               >
                 <img src="/play-store.png" alt="Google Play" className="h-6" />
                 Get Kaaikani App
@@ -100,35 +100,35 @@ export default function AboutUs() {
                 href="https://kaaikanistore.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2  text-white  rounded-full bg-brand-accent-red hover:bg-brand-dark-red transition-colors"
+                className="px-6 py-2 text-white rounded-full bg-gradient-to-r from-navy to-spice hover:from-navy-dark hover:to-spice-dark transition-all"
               >
                 Visit Kaaikani Store
               </a>
             </div>
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <div className="bg-white p-4 rounded-lg shadow-sm text-center w-36">
-                <div className="text-3xl font-bold text-brand-accent-red mb-2">
+              <div className="bg-white p-4 rounded-lg shadow-lg border border-gold/20 text-center w-36">
+                <div className="text-3xl font-bold text-spice mb-2">
                   2023
                 </div>
-                <div className="text-sm text-gray-600">Founded</div>
+                <div className="text-sm text-navy/70">Founded</div>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm text-center w-36">
-                <div className="text-3xl font-bold text-brand-accent-red mb-2">
+              <div className="bg-white p-4 rounded-lg shadow-lg border border-gold/20 text-center w-36">
+                <div className="text-3xl font-bold text-spice mb-2">
                   200+
                 </div>
-                <div className="text-sm text-gray-600">Products</div>
+                <div className="text-sm text-navy/70">Products</div>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm text-center w-36">
-                <div className="text-3xl font-bold text-brand-accent-red mb-2">
+              <div className="bg-white p-4 rounded-lg shadow-lg border border-gold/20 text-center w-36">
+                <div className="text-3xl font-bold text-spice mb-2">
                   20K+
                 </div>
-                <div className="text-sm text-gray-600">Happy Customers</div>
+                <div className="text-sm text-navy/70">Happy Customers</div>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm text-center w-36">
-                <div className="text-3xl font-bold text-brand-accent-red mb-2">
+              <div className="bg-white p-4 rounded-lg shadow-lg border border-gold/20 text-center w-36">
+                <div className="text-3xl font-bold text-spice mb-2">
                   24/7
                 </div>
-                <div className="text-sm text-gray-600">Support</div>
+                <div className="text-sm text-navy/70">Support</div>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function AboutUs() {
             {[
               {
                 icon: (
-                  <CheckCircle className="w-12 h-12 text-brand-accent-red mb-4 mx-auto" />
+                  <CheckCircle className="w-12 h-12 text-spice mb-4 mx-auto" />
                 ),
                 title: 'Premium Quality',
                 description:
@@ -146,7 +146,7 @@ export default function AboutUs() {
               },
               {
                 icon: (
-                  <Truck className="w-12 h-12 text-brand-accent-red mb-4 mx-auto" />
+                  <Truck className="w-12 h-12 text-spice mb-4 mx-auto" />
                 ),
                 title: 'Fast Delivery',
                 description:
@@ -154,22 +154,22 @@ export default function AboutUs() {
               },
               {
                 icon: (
-                  <Heart className="w-12 h-12 text-brand-accent-red mb-4 mx-auto" />
+                  <Heart className="w-12 h-12 text-spice mb-4 mx-auto" />
                 ),
                 title: 'Made with Love',
                 description:
-                  'Every snack is prepared with care and attention to detail, just for you.',
+                  'Every spice is handpicked and packed with care and attention to detail, preserving the authentic taste of Kerala.',
               },
             ].map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow"
+                className="bg-white p-8 rounded-xl shadow-lg border border-gold/20 text-center hover:shadow-xl transition-all hover:-translate-y-1"
               >
                 {feature.icon}
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+                <h3 className="text-xl font-semibold mb-3 text-navy">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-navy/70">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -216,53 +216,53 @@ export default function AboutUs() {
       </section> */}
 
       {/* Values Section */}
-      <section className="py-16 bg-brand-light-gray">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <span className="inline-block px-4 py-1 bg-brand-accent-red/10 text-brand-accent-red rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 bg-spice/10 text-spice rounded-full text-sm font-medium mb-4">
               OUR VALUES
             </span>
-            <h2 className="text-3xl font-bold text-gray-800 mb-12">
+            <h2 className="text-3xl font-bold text-navy mb-12">
               What We Stand For
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
                   icon: (
-                    <Leaf className="w-8 h-8 text-brand-accent-red mb-4 mx-auto" />
+                    <Leaf className="w-8 h-8 text-spice mb-4 mx-auto" />
                   ),
                   title: 'Sustainability',
                   description:
-                    "We're committed to eco-friendly practices and sustainable sourcing.",
+                    "We're committed to eco-friendly practices and sustainable sourcing from Kerala's organic farms.",
                 },
                 {
                   icon: (
-                    <Heart className="w-8 h-8 text-brand-accent-red mb-4 mx-auto" />
+                    <Heart className="w-8 h-8 text-spice mb-4 mx-auto" />
                   ),
                   title: 'Passion',
                   description:
-                    'We pour our hearts into creating snacks that bring people together.',
+                    'We pour our hearts into bringing authentic Kerala spices that unite families and cultures through food.',
                 },
                 {
                   icon: (
-                    <Shield className="w-8 h-8 text-brand-accent-red mb-4 mx-auto" />
+                    <Shield className="w-8 h-8 text-spice mb-4 mx-auto" />
                   ),
                   title: 'Integrity',
                   description:
-                    "We believe in transparency and doing what's right, always.",
+                    "We believe in transparency, purity, and doing what's right, ensuring you get 100% authentic Kerala spices.",
                 },
               ].map((value, index) => (
                 <div
                   key={index}
-                  className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                  className="bg-cream/30 p-8 rounded-xl shadow-lg border border-gold/20 hover:shadow-xl transition-all hover:-translate-y-1"
                 >
-                  <div className="w-16 h-16 bg-brand-accent-red/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-spice/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     {value.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">
+                  <h3 className="text-xl font-semibold mb-3 text-navy">
                     {value.title}
                   </h3>
-                  <p className="text-gray-600">{value.description}</p>
+                  <p className="text-navy/70">{value.description}</p>
                 </div>
               ))}
             </div>

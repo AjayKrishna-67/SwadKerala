@@ -1,17 +1,18 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { Link } from '@remix-run/react';
-import { Price, PriceRange } from './Price';
-import {
-  HeartIcon as HeartSolidIcon,
-  CheckIcon,
-} from '@heroicons/react/24/solid';
+import { Price } from './Price';
+import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
-import { CurrencyCode, type Order, type OrderLine } from '~/generated/graphql';
+import { CurrencyCode } from '~/generated/graphql';
+import { CheckIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from 'react-i18next';
-import { StockLevelLabel } from '~/components/products/StockLevelLabel';
-import { SignInPromptModal } from '~/components/modal/SignInPromptModal';
+import { StockLevelLabel } from '~/components/products/StockLevelLabel'; // ✅ added
+import {
+  trackAddToCart,
+  trackButtonClick,
+  trackAddToWishlist,
+} from '~/utils/meta-pixel';
 
 export interface ActiveCustomer {
   activeCustomer?: {
@@ -22,29 +23,40 @@ export interface ActiveCustomer {
   } | null;
 }
 
+type VariantOption = {
+  name: string;
+  group?: {
+    name: string;
+  } | null;
+};
+
 export interface ProductCardProps {
-  productAsset: { preview: string } | null;
+  productAsset: any;
   productName: string;
   slug: string;
-  priceWithTax: number | PriceRange;
+  priceWithTax: any;
   currencyCode: CurrencyCode;
+  shadowPrice?: number | null;
   variants?: Array<{
     id: string;
     name: string;
     featuredAsset?: { preview: string };
-    priceWithTax: number;
+    priceWithTax: any;
     currencyCode: CurrencyCode;
     stockLevel?: string;
     sku?: string;
+    options?: VariantOption[];
+    customFields?: {
+      shadowPrice?: number | null;
+    };
   }>;
   productId: string;
   activeCustomer?: ActiveCustomer;
   activeOrderFetcher: any;
-  activeOrder?: Order | null;
+  activeOrder?: any;
   onFavoriteToggle?: (productId: string, isFavorited: boolean) => void;
   orderCount?: number;
-  isSignedIn: boolean;
-  showAsVariantCard?: boolean; // 👈 new prop
+  onShowSignInModal?: () => void;
 }
 
 export function ProductCard({
@@ -58,21 +70,78 @@ export function ProductCard({
   activeCustomer,
   activeOrderFetcher,
   activeOrder,
+  shadowPrice,
   onFavoriteToggle,
   orderCount,
-  isSignedIn,
-  showAsVariantCard = false,
+  onShowSignInModal,
 }: ProductCardProps) {
   const { t } = useTranslation();
   const [selectedVariantId, setSelectedVariantId] = useState(
     variants?.[0]?.id || null,
   );
   const selectedVariant =
-    variants?.find((v) => v.id === selectedVariantId) || null;
+    variants?.find((v: any) => v.id === selectedVariantId) || null;
 
+  const getVariantDropdownLabel = (variant: (typeof variants)[number]) => {
+    const optionLabels =
+      variant.options
+        ?.map((option) => {
+          const groupName = option.group?.name?.trim();
+          const optionName = option.name?.trim();
+
+          if (groupName && optionName) {
+            return `${groupName}: ${optionName}`;
+          }
+          return optionName || groupName || '';
+        })
+        .filter(Boolean) ?? [];
+
+    if (optionLabels.length) {
+      return optionLabels.join(' • ');
+    }
+
+    return variant.name;
+  };
+
+  const extractPriceValue = (price?: any): number | null => {
+    if (price == null) return null;
+    if (typeof price === 'number') return price;
+    if (typeof price === 'object') {
+      if ('value' in price && typeof price.value === 'number') {
+        return price.value;
+      }
+      if ('min' in price && typeof price.min === 'number') {
+        return price.min;
+      }
+    }
+    return null;
+  };
+
+  const currentPriceValue = extractPriceValue(
+    selectedVariant?.priceWithTax ?? priceWithTax,
+  );
+
+  const shadowPriceRaw = selectedVariant?.customFields?.shadowPrice;
+  const shadowPriceValue =
+    typeof shadowPriceRaw === 'number'
+      ? shadowPriceRaw * 100
+      : extractPriceValue(shadowPriceRaw);
+
+  const shouldShowShadowPrice =
+    shadowPriceValue != null &&
+    currentPriceValue != null &&
+    shadowPriceValue > currentPriceValue;
+
+  const discountPercent =
+    shouldShowShadowPrice && shadowPriceValue && currentPriceValue
+      ? Math.round(
+          ((shadowPriceValue - currentPriceValue) / shadowPriceValue) * 100,
+        )
+      : null;
+
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
-  const [showSignInModal, setShowSignInModal] = useState(false);
 
   useEffect(() => {
     setIsHydrated(true);
@@ -80,11 +149,18 @@ export function ProductCard({
 
   useEffect(() => {
     if (isHydrated) {
+      setIsSignedIn(!!activeCustomer?.activeCustomer?.id);
+    }
+  }, [activeCustomer, isHydrated]);
+
+  useEffect(() => {
+    if (isHydrated) {
       const favorites = activeCustomer?.activeCustomer?.favorites;
       if (favorites?.items?.length) {
-        const isFav = favorites.items.some(
-          (item) => item.product?.id === productId,
-        );
+        const isFav = favorites.items.some((item) => {
+          if (!item.product) return false;
+          return item.product.id === productId;
+        });
         setIsFavorited(isFav);
       } else {
         setIsFavorited(false);
@@ -92,20 +168,35 @@ export function ProductCard({
     }
   }, [activeCustomer, productId, isHydrated]);
 
-  const orderLine = activeOrder?.lines.find(
-    (l: OrderLine) => l.productVariant.id === selectedVariantId,
-  );
-  const qtyInCart = orderLine?.quantity ?? 0;
+  const qtyInCart =
+    activeOrder?.lines.find(
+      (l: any) => l.productVariant.id === selectedVariantId,
+    )?.quantity ?? 0;
 
-  const handleAdjustQty = async (orderLineId: string, quantity: number) => {
+  // ✅ Define orderLine for +/- buttons
+  const orderLine = activeOrder?.lines.find(
+    (l: any) => l.productVariant.id === selectedVariantId,
+  );
+
+  const handleAdjustQty = (orderLineId: string, quantity: number) => {
     const formData = new FormData();
     formData.append('action', 'adjustItem');
     formData.append('lineId', orderLineId);
     formData.append('quantity', quantity.toString());
+
     activeOrderFetcher.submit(formData, {
       method: 'post',
       action: '/api/active-order',
     });
+  };
+
+  const handleShowSignInModal = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onShowSignInModal) {
+      onShowSignInModal();
+    } else {
+      alert(t('product.signInToFavorite'));
+    }
   };
 
   const handleToggleFavorite = async (e: React.MouseEvent) => {
@@ -134,31 +225,43 @@ export function ProductCard({
       if (onFavoriteToggle) {
         onFavoriteToggle(productId, isNowFavorite);
       }
+      // Track AddToWishlist event for Meta Pixel
+      if (isNowFavorite && selectedVariant) {
+        const priceValue = currentPriceValue ? currentPriceValue / 100 : undefined;
+        trackAddToWishlist(
+          productName,
+          [productId, selectedVariant.id],
+          priceValue,
+          currencyCode,
+        );
+      }
     } catch (error) {
       console.error('Favorite error:', error);
       alert(t('product.favoriteError'));
     }
   };
 
-  const handleShowSignInModal = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowSignInModal(true);
-  };
-
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!isSignedIn) {
-      setShowSignInModal(true);
-      return;
-    }
-
     if (!selectedVariantId) return;
+
+    // Track AddToCart event for Meta Pixel
+    const priceValue = currentPriceValue ? currentPriceValue / 100 : undefined;
+    trackAddToCart(
+      productName,
+      [productId, selectedVariantId],
+      priceValue,
+      currencyCode,
+      1,
+    );
+    trackButtonClick('AddToCart', 'ProductCard');
 
     const formData = new FormData();
     formData.append('action', 'addItemToOrder');
     formData.append('variantId', selectedVariantId);
     formData.append('quantity', '1');
+
 
     activeOrderFetcher.submit(formData, {
       method: 'post',
@@ -168,6 +271,14 @@ export function ProductCard({
 
   return (
     <div className="flex flex-col border rounded-xl p-2 relative bg-white shadow-sm">
+      {discountPercent && discountPercent > 0 ? (
+        <div className="absolute -top-[1px] left-2 z-10">
+          <div className="inline-flex flex-col items-center bg-red-500 text-white rounded-b px-1 py-1">
+            <span className="text-sm font-bold">{discountPercent}%</span>
+            <span className="text-[12px] font-semibold tracking-wide">OFF</span>
+          </div>
+        </div>
+      ) : null}
       <Link
         prefetch="intent"
         to={`/products/${slug}`}
@@ -175,16 +286,17 @@ export function ProductCard({
       >
         <img
           className="rounded-xl flex-grow object-cover aspect-[7/5]"
-          alt={productName}
+          alt=""
           src={
             selectedVariant?.featuredAsset?.preview ||
             productAsset?.preview + '?w=300&h=400' ||
+            '/placeholder.svg?height=400&width=300' ||
             '/placeholder.svg'
           }
         />
 
         {orderCount ? (
-          <div className="absolute top-1 left-2 bg-brand-dark-red text-white text-xs px-2 py-1 rounded-md shadow">
+          <div className="absolute top-1 left-2 bg-[#E62727] text-white text-xs px-2 py-1 rounded-md shadow">
             {orderCount}+ Past Orders
           </div>
         ) : null}
@@ -193,29 +305,38 @@ export function ProductCard({
       <div className="h-2" />
 
       {/* ✅ Product Name */}
-      <div className="text-sm text-gray-700 text-center font-medium">
-        {productName}
-      </div>
+      <div className="text-sm text-gray-700">{productName}</div>
 
       {/* ✅ Price */}
-      <div className="text-sm font-medium text-gray-900 flex items-center justify-center gap-2 mt-1">
+      <div className="text-lg font-semibold text-gray-900 flex items-center gap-2">
         <Price
           priceWithTax={selectedVariant?.priceWithTax || priceWithTax}
           currencyCode={selectedVariant?.currencyCode || currencyCode}
         />
+        {shouldShowShadowPrice ? (
+          <span className="text-xs text-gray-500 mt-2 mr-2 line-through">
+            <Price
+              priceWithTax={shadowPriceValue ?? 0}
+              currencyCode={selectedVariant?.currencyCode || currencyCode}
+            />
+          </span>
+        ) : null}
         <StockLevelLabel stockLevel={selectedVariant?.stockLevel} />
       </div>
 
-      {/* ✅ Variant Selector (hidden if showAsVariantCard) */}
-      {!showAsVariantCard && variants && variants.length > 0 ? (
+      {/* ✅ Variant Selector */}
+      {variants && variants.length > 0 ? (
         <select
           className="mt-2 border rounded px-1 py-1 text-xs"
           value={selectedVariantId || ''}
-          onChange={(e) => setSelectedVariantId(e.target.value)}
+          onChange={(event) => {
+            event.stopPropagation();
+            setSelectedVariantId(event.target.value);
+          }}
         >
           {variants.map((variant) => (
             <option key={variant.id} value={variant.id}>
-              {variant.name}
+              {getVariantDropdownLabel(variant)}
             </option>
           ))}
         </select>
@@ -223,12 +344,11 @@ export function ProductCard({
         <div className="mt-2 h-7" />
       )}
 
-      {/* ✅ Add to Cart */}
       {qtyInCart === 0 ? (
         <button
           type="button"
           className={`w-full text-white py-2 mt-1 px-4 rounded-lg text-sm font-semibold transition-colors duration-200 shadow-md ${
-            isSignedIn ? 'bg-spice hover:bg-spice-600 text-white' : 'bg-gray-400'
+            isSignedIn ? 'bg-spice' : 'bg-gray-400'
           }`}
           onClick={isSignedIn ? handleAddToCart : handleShowSignInModal}
         >
@@ -242,7 +362,7 @@ export function ProductCard({
               orderLine &&
               handleAdjustQty(orderLine.id, Math.max(0, qtyInCart - 1))
             }
-            className="flex-1 rounded-2xl border text-brand-red shadow-sm text-lg hover:bg-red-50 transition-colors duration-200"
+            className="flex-1 rounded-2xl border text-[#FF6B6B] shadow-sm text-lg hover:bg-red-50 transition-colors duration-200"
           >
             -
           </button>
@@ -254,7 +374,7 @@ export function ProductCard({
             onClick={() =>
               orderLine && handleAdjustQty(orderLine.id, qtyInCart + 1)
             }
-            className="flex-1 rounded-2xl border text-brand-red shadow-sm text-lg hover:bg-red-50 transition-colors duration-200"
+            className="flex-1 rounded-2xl border text-[#FF6B6B] shadow-sm text-lg hover:bg-red-50 transition-colors duration-200"
           >
             +
           </button>
@@ -276,11 +396,6 @@ export function ProductCard({
           )}
         </button>
       )}
-
-      <SignInPromptModal
-        isOpen={showSignInModal}
-        close={() => setShowSignInModal(false)}
-      />
     </div>
   );
 }

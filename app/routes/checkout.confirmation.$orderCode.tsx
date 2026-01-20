@@ -13,6 +13,7 @@ import { OrderDetailFragment } from '~/generated/graphql';
 import { useTranslation } from 'react-i18next';
 import { useActiveOrder } from '~/utils/use-active-order';
 import { getCollections } from '~/providers/collections/collections';
+import { trackPurchase } from '~/utils/meta-pixel';
 
 // Keep steps consistent with checkout flow
 const steps = ['shipping-cart', 'payment', 'confirmation'];
@@ -75,6 +76,27 @@ export default function CheckoutConfirmation() {
     }
   }, [order, orderErrored, orderNotFound, hasRefreshed, refresh]);
 
+  // Track Purchase event when order is confirmed
+  useEffect(() => {
+    if (order && !orderErrored && !orderNotFound) {
+      const orderValue = order.totalWithTax ? order.totalWithTax / 100 : 0;
+      const contentIds = order.lines.map((line) => line.productVariant.id);
+      const numItems = order.lines.reduce(
+        (sum, line) => sum + line.quantity,
+        0,
+      );
+
+      trackPurchase(
+        orderValue,
+        order.currencyCode,
+        contentIds,
+        `Order ${order.code}`,
+        numItems,
+        order.code,
+      );
+    }
+  }, [order, orderErrored, orderNotFound]);
+
   if (orderNotFound || (orderErrored && retries > maxRetries)) {
     return (
       <div className="bg-amber-50 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-[90px]">
@@ -105,7 +127,7 @@ export default function CheckoutConfirmation() {
   return (
     <>
       {/* The main background for the entire confirmation page */}
-      <main className="min-h-screen mt-20 bg-amber-100 py-10 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen mt-20 py-10 px-4 sm:px-6 lg:px-8">
         {/* Progress Bar */}
         <div className="lg:max-w-4xl mx-auto mb-8">
           <nav aria-label="Progress">

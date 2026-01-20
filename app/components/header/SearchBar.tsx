@@ -3,6 +3,7 @@
 import type React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from '@remix-run/react';
+import { trackSearch, trackButtonClick } from '~/utils/meta-pixel';
 
 export function SearchBar({ isOpen }: { isOpen: boolean }) {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -23,6 +24,9 @@ export function SearchBar({ isOpen }: { isOpen: boolean }) {
     const query = formData.get('q') as string;
     if (query?.trim()) {
       console.log('Searching for:', query);
+      // Track search event for Meta Pixel
+      trackSearch(query);
+      trackButtonClick('Search', 'SearchBar');
       navigate(`/search?q=${encodeURIComponent(query)}`);
     }
   };

@@ -17,7 +17,7 @@ export interface GraphqlResponse<Response> {
 export type WithHeaders<T> = T & { _headers: Headers };
 
 // Fixed channel token
-const CHANNEL_TOKEN = 'Ind-Snacks';
+const CHANNEL_TOKEN = 'ind-Swadkerala';
 
 async function sendQuery<Response, Variables = {}>(options: {
   query: string;
