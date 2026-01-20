@@ -111,6 +111,39 @@ export async function action({ request }: ActionFunctionArgs) {
 
         const cookieHeaders = await sessionStorage.commitSession(session);
 
+        // Check if user has phone number
+        try {
+          // Create a new request with the session cookie for checking customer details
+          const checkRequest = new Request(new URL('/account', request.url).toString(), {
+            method: 'GET',
+            headers: {
+              Cookie: cookieHeaders,
+              'vendure-token': channelToken,
+            },
+          });
+
+          const { getActiveCustomerDetails } = await import('~/providers/customer/customer');
+          const { activeCustomer } = await getActiveCustomerDetails({ 
+            request: checkRequest,
+          });
+
+          const needsPhoneNumber = !activeCustomer?.phoneNumber || activeCustomer.phoneNumber.trim() === '';
+
+          if (needsPhoneNumber) {
+            // Redirect to account page with phone requirement flag
+            const accountUrl = new URL('/account', request.url);
+            accountUrl.searchParams.set('requirePhone', 'true');
+            return redirect(accountUrl.toString(), {
+              headers: {
+                'Set-Cookie': cookieHeaders,
+              },
+            });
+          }
+        } catch (error) {
+          console.error('Error checking phone number:', error);
+          // Continue to home if check fails
+        }
+
         // ✅ Redirect to home with success parameters
         const url = new URL('/', request.url);
         const protocol =

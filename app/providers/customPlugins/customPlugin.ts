@@ -711,3 +711,50 @@ export async function authenticateWithGoogle(
 
   return result.result;
 }
+
+export interface AvailableChannel {
+  id: string;
+  code: string;
+  token: string;
+  name: string;
+  type: string;
+  isAvailable: boolean;
+}
+
+export async function getAvailableChannels(
+  postalCode: string,
+  type: 'BRAND' = 'BRAND',
+  options?: { request?: Request; customHeaders?: Record<string, string> },
+): Promise<WithHeaders<AvailableChannel[]>> {
+  const response = await (sdk as any).GetAvailableChannels(
+    { postalCode, type },
+    options,
+  );
+
+  // Filter to only show SWAD KERALA channel by token
+  const allChannels = response.getAvailableChannels || [];
+  const swadKeralaChannel = allChannels.filter(
+    (channel: AvailableChannel) =>
+      channel.token === 'ind-Swadkerala' ||
+      channel.token.toLowerCase() === 'ind-swadkerala',
+  );
+
+  const result = Object.assign([...swadKeralaChannel], {
+    _headers: response._headers,
+  });
+
+  return result;
+}
+
+gql`
+  query GetAvailableChannels($postalCode: String!, $type: ChannelType!) {
+    getAvailableChannels(postalCode: $postalCode, type: $type) {
+      id
+      code
+      token
+      name
+      type
+      isAvailable
+    }
+  }
+`;

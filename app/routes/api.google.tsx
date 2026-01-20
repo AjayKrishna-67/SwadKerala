@@ -64,9 +64,47 @@ export async function action({ request }: ActionFunctionArgs) {
       session.set('userId', authResult.id);
       session.set('identifier', authResult.identifier);
 
+      const cookieHeaders = await sessionStorage.commitSession(session);
+
+      // Check if user has phone number
+      try {
+        // Get channel token from constants
+        const CHANNEL_TOKEN = 'ind-Swadkerala';
+        
+        // Create a new request with the session cookie for checking customer details
+        const checkRequest = new Request(new URL('/account', request.url).toString(), {
+          method: 'GET',
+          headers: {
+            Cookie: cookieHeaders,
+            'vendure-token': CHANNEL_TOKEN,
+          },
+        });
+
+        const { getActiveCustomerDetails } = await import('~/providers/customer/customer');
+        const { activeCustomer } = await getActiveCustomerDetails({ 
+          request: checkRequest,
+        });
+
+        const needsPhoneNumber = !activeCustomer?.phoneNumber || activeCustomer.phoneNumber.trim() === '';
+
+        if (needsPhoneNumber) {
+          // Redirect to account page with phone requirement flag
+          const accountUrl = new URL('/account', request.url);
+          accountUrl.searchParams.set('requirePhone', 'true');
+          return redirect(accountUrl.toString(), {
+            headers: {
+              'Set-Cookie': cookieHeaders,
+            },
+          });
+        }
+      } catch (error) {
+        console.error('Error checking phone number:', error);
+        // Continue to home if check fails
+      }
+
       return redirect('/', {
         headers: {
-          'Set-Cookie': await sessionStorage.commitSession(session),
+          'Set-Cookie': cookieHeaders,
         },
       });
     }

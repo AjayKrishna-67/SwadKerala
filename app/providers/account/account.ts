@@ -367,46 +367,106 @@ export async function authenticate(
   }: { request: Request; customHeaders: { 'vendure-token': string } }
 ): Promise<{ result: CurrentUser | ErrorResult; headers: Headers }> {
   const vendureApiUrl = process.env.VENDURE_API_URL;
-  console.log('authenticate:', authenticate);
-  const response = await fetch(vendureApiUrl!, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'vendure-token': customHeaders['vendure-token'],
-    },
-    body: JSON.stringify({
-      query: `
-        mutation Authenticate($input: AuthenticationInput!) {
-          authenticate(input: $input) {
-            __typename
-            ... on CurrentUser {
-              id
-              identifier
-              channels {
+  if (!vendureApiUrl) {
+    throw new Error('VENDURE_API_URL is not defined');
+  }
+
+  try {
+    const response = await fetch(vendureApiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'vendure-token': customHeaders['vendure-token'],
+      },
+      body: JSON.stringify({
+        query: `
+          mutation Authenticate($input: AuthenticationInput!) {
+            authenticate(input: $input) {
+              __typename
+              ... on CurrentUser {
                 id
-                code
-                token
-                permissions
+                identifier
+                channels {
+                  id
+                  code
+                  token
+                  permissions
+                }
+              }
+              ... on InvalidCredentialsError {
+                message
+                errorCode
+              }
+              ... on NotVerifiedError {
+                message
+                errorCode
               }
             }
-            ... on InvalidCredentialsError {
-              message
-              errorCode
-            }
-            ... on NotVerifiedError {
-              message
-              errorCode
-            }
           }
-        }
-      `,
-      variables: { input },
-    }),
-  });
+        `,
+        variables: { input },
+      }),
+    });
 
-  const json = await response.json() as { data: { authenticate: CurrentUser | ErrorResult } };
-  return {
-    result: json.data.authenticate,
-    headers: response.headers,
-  };
+    // Check if response is OK
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('HTTP error response:', response.status, errorText);
+      return {
+        result: {
+          __typename: 'InvalidCredentialsError',
+          message: `Authentication failed: HTTP ${response.status}`,
+          errorCode: 'INVALID_CREDENTIALS_ERROR',
+        } as ErrorResult,
+        headers: response.headers,
+      };
+    }
+
+    const json = await response.json() as { 
+      data?: { authenticate: CurrentUser | ErrorResult };
+      errors?: Array<{ message: string; extensions?: any }>;
+    };
+
+    // Check for GraphQL errors
+    if (json.errors && json.errors.length > 0) {
+      const errorMessage = json.errors[0].message || 'Authentication failed';
+      console.error('GraphQL errors:', json.errors);
+      return {
+        result: {
+          __typename: 'InvalidCredentialsError',
+          message: errorMessage,
+          errorCode: 'INVALID_CREDENTIALS_ERROR',
+        } as ErrorResult,
+        headers: response.headers,
+      };
+    }
+
+    // Check if data is null or missing
+    if (!json.data || !json.data.authenticate) {
+      console.error('No data in response:', json);
+      return {
+        result: {
+          __typename: 'InvalidCredentialsError',
+          message: 'Authentication failed: No data received',
+          errorCode: 'INVALID_CREDENTIALS_ERROR',
+        } as ErrorResult,
+        headers: response.headers,
+      };
+    }
+
+    return {
+      result: json.data.authenticate,
+      headers: response.headers,
+    };
+  } catch (error) {
+    console.error('Network error during authentication:', error);
+    return {
+      result: {
+        __typename: 'InvalidCredentialsError',
+        message: error instanceof Error ? error.message : 'Network error during authentication',
+        errorCode: 'INVALID_CREDENTIALS_ERROR',
+      } as ErrorResult,
+      headers: new Headers(),
+    };
+  }
 }

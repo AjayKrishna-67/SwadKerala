@@ -76,7 +76,14 @@ export const phoneNumberValidator = withZod(
     phoneNumber: z
       .string()
       .min(1, { message: 'Phone number is required' })
-      .regex(/^\+?[1-9]\d{1,14}$/, { message: 'Invalid phone number format' }),
+      .regex(/^\d{10}$/, { message: 'Phone number must be exactly 10 digits' })
+      .refine((val) => {
+        // Remove any whitespace and check if it's exactly 10 digits
+        const cleaned = val.replace(/\s+/g, '');
+        return /^\d{10}$/.test(cleaned);
+      }, {
+        message: 'Phone number must be exactly 10 digits',
+      }),
   }),
 );
 
@@ -112,7 +119,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
       });
     }
 
-    return json({ activeCustomer });
+    // Check if phone number is missing
+    const url = new URL(request.url);
+    const showPhoneModal = url.searchParams.get('requirePhone') === 'true';
+    const needsPhoneNumber = !activeCustomer.phoneNumber || activeCustomer.phoneNumber.trim() === '';
+
+    return json({ 
+      activeCustomer,
+      needsPhoneNumber,
+      showPhoneModal: showPhoneModal || needsPhoneNumber,
+    });
   } catch (error) {
     console.error('Loader error:', error);
     throw new Response('Internal Server Error', { status: 500 });
@@ -234,7 +250,7 @@ export async function action({ request }: DataFunctionArgs) {
 }
 
 export default function AccountDashboard() {
-  const { activeCustomer } = useLoaderData<typeof loader>();
+  const { activeCustomer, needsPhoneNumber, showPhoneModal } = useLoaderData<typeof loader>();
   const { firstName, lastName, emailAddress, phoneNumber, title } =
     activeCustomer!;
   const [searchParams] = useSearchParams();
@@ -247,8 +263,11 @@ export default function AccountDashboard() {
     useState<EmailSavedResponse>();
   const [showChangeEmailModal, openChangeEmailModal, closeChangeEmailModal] =
     useToggleState(false);
+  const [showPhoneNumberModal, openPhoneNumberModal, closePhoneNumberModal] =
+    useToggleState(showPhoneModal || needsPhoneNumber);
   const [isEditing, setIsEditing] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const phoneFormRef = useRef<HTMLFormElement>(null);
 
   const fullName = `${title ? title + ' ' : ''}${firstName} ${lastName}`;
   const isAccountDetailsPage = location.pathname === '/account';
@@ -266,6 +285,7 @@ export default function AccountDashboard() {
     if ((actionDataHook as any).customerUpdated) {
       setIsEditing(false);
       setFormError(undefined);
+      closePhoneNumberModal();
       window.location.href = '/account';
       return;
     }
@@ -301,6 +321,12 @@ export default function AccountDashboard() {
             formError={formError}
             formRef={formRef}
             state={state}
+            phoneNumber={phoneNumber}
+            showPhoneNumberModal={showPhoneNumberModal}
+            openPhoneNumberModal={openPhoneNumberModal}
+            closePhoneNumberModal={closePhoneNumberModal}
+            phoneFormRef={phoneFormRef}
+            needsPhoneNumber={needsPhoneNumber}
           />
         ) : (
           <Outlet />
@@ -320,6 +346,12 @@ function AccountDetailsContent({
   formError,
   formRef,
   state,
+  phoneNumber,
+  showPhoneNumberModal,
+  openPhoneNumberModal,
+  closePhoneNumberModal,
+  phoneFormRef,
+  needsPhoneNumber,
 }: {
   activeCustomer: any;
   fullName: string;
@@ -330,9 +362,14 @@ function AccountDetailsContent({
   formError: FormError | undefined;
   formRef: React.RefObject<HTMLFormElement>;
   state: string;
+  phoneNumber?: string | null;
+  showPhoneNumberModal: boolean;
+  openPhoneNumberModal: () => void;
+  closePhoneNumberModal: () => void;
+  phoneFormRef: React.RefObject<HTMLFormElement>;
+  needsPhoneNumber: boolean;
 }) {
-  const { firstName, lastName, title, phoneNumber, emailAddress } =
-    activeCustomer;
+  const { firstName, lastName, title, emailAddress } = activeCustomer;
 
   return (
     <div className="space-y-8 pt-10">
@@ -503,6 +540,142 @@ function AccountDetailsContent({
           )}
         </CardContent>
       </Card>
+
+      {/* Phone Number Card */}
+      <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-purple-100 rounded-full">
+                <Phone className="h-5 w-5 text-purple-700" />
+              </div>
+              <div>
+                <CardTitle className="text-xl font-semibold text-gray-900">
+                  Phone Number
+                </CardTitle>
+                <CardDescription className="text-sm text-gray-600">
+                  {phoneNumber ? 'Your contact number' : 'Add your phone number to complete your profile'}
+                </CardDescription>
+              </div>
+            </div>
+            <Button
+              variant="default"
+              onClick={openPhoneNumberModal}
+              className="h-10 px-4 bg-spice hover:bg-spice-600 text-white rounded-md transition-all duration-200"
+            >
+              <Edit className="h-4 w-4 mr-2" /> {phoneNumber ? 'Update' : 'Add'} Phone
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <Label className="text-xs font-semibold uppercase text-gray-600 flex items-center gap-2 mb-2">
+                <Phone className="h-4 w-4" />
+                Phone Number
+              </Label>
+              <p className="text-base font-medium text-gray-900">
+                {phoneNumber ? (
+                  phoneNumber
+                ) : (
+                  <span className="text-gray-500 italic">Not Provided</span>
+                )}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Phone Number Update Modal */}
+      <Dialog open={showPhoneNumberModal} onOpenChange={(open) => {
+        if (!open && !needsPhoneNumber) {
+          closePhoneNumberModal();
+        }
+      }}>
+        <DialogContent className="sm:max-w-[500px] !bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-semibold !text-gray-900">
+              {phoneNumber ? 'Update Phone Number' : 'Add Phone Number'}
+            </DialogTitle>
+            {needsPhoneNumber && (
+              <p className="text-sm !text-gray-600 mt-2">
+                Please add your phone number to complete your profile.
+              </p>
+            )}
+          </DialogHeader>
+          <ValidatedForm
+            validator={phoneNumberValidator}
+            formRef={phoneFormRef}
+            method="post"
+            id="phone-number"
+            defaultValues={{
+              phoneNumber: phoneNumber || '',
+            }}
+          >
+            <input
+              type="hidden"
+              name="intent"
+              value={FormIntent.UpdatePhone}
+            />
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="phoneNumber"
+                  className="text-sm font-semibold !text-gray-700"
+                >
+                  Phone Number <span className="text-spice">*</span>
+                </Label>
+                <Input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  required
+                  type="tel"
+                  maxLength={10}
+                  className="h-11 border-gray-300 focus:ring-gold focus:border-navy !text-gray-900 !bg-white"
+                  placeholder="Enter 10 digit phone number"
+                  defaultValue={phoneNumber || ''}
+                  onInput={(e) => {
+                    // Only allow digits
+                    const target = e.target as HTMLInputElement;
+                    target.value = target.value.replace(/\D/g, '').slice(0, 10);
+                  }}
+                />
+                <p className="text-xs !text-gray-500">
+                  Enter exactly 10 digits (e.g., 9876543210)
+                </p>
+              </div>
+              {formError && formError.intent === FormIntent.UpdatePhone && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-600 font-medium">
+                    {formError.message}
+                  </p>
+                </div>
+              )}
+            </div>
+            <DialogFooter>
+              <div className="flex gap-3 w-full">
+                {!needsPhoneNumber && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={closePhoneNumberModal}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                )}
+                <HighlightedButton
+                  type="submit"
+                  isSubmitting={state === 'submitting'}
+                  className={`flex-1 bg-spice hover:bg-spice-600 text-white ${needsPhoneNumber ? 'w-full' : ''}`}
+                >
+                  {phoneNumber ? 'Update' : 'Add'} Phone Number
+                </HighlightedButton>
+              </div>
+            </DialogFooter>
+          </ValidatedForm>
+        </DialogContent>
+      </Dialog>
 
       {/* Email Address Card */}
       <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
